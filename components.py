@@ -59,7 +59,10 @@ def display_product(result):
 
     # LLMレスポンスのテキストを辞書に変換
     product_lines = result[0].page_content.split("\n")
-    product = {item.split(": ")[0]: item.split(": ")[1] for item in product_lines}
+    product = {item.split(": ")[0]: item.split(": ")[1] for item in product_lines if ": " in item}
+
+    # デバッグ用にパース結果を出力
+    logger.info(f"Parsed product data: {product}")
 
     st.markdown("以下の商品をご提案いたします。")
 
@@ -85,6 +88,22 @@ def display_product(result):
     # おすすめ対象ユーザー
     st.markdown("**こんな方におすすめ！**")
     st.info(product["recommended_people"])
+
+    # デバッグ用に stock_status を出力
+    stock_status = product.get("stock_status", "不明")
+    logger.info(f"Stock status: {stock_status}")
+
+    # 在庫状況の表示
+    if stock_status == ct.STOCK_LOW:
+        st.markdown(ct.STOCK_LOW_ICON_CSS, unsafe_allow_html=True)
+        st.warning(ct.STOCK_LOW_MESSAGE)
+    elif stock_status == ct.STOCK_NONE:
+        st.markdown(ct.STOCK_NONE_ICON_CSS, unsafe_allow_html=True)
+        st.error(ct.STOCK_NONE_MESSAGE)
+    elif stock_status == "あり":  # 在庫が「あり」の場合
+        st.info("在庫は十分にあります。")
+    else:
+        st.info("在庫情報が不明です。")
 
     # 商品ページのリンク
     st.link_button("商品ページを開く", type="primary", use_container_width=True, url="https://google.com")

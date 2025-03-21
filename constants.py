@@ -35,7 +35,7 @@ RETRIEVER_WEIGHTS = [0.5, 0.5]
 # ==========================================
 # RAG参照用のデータソース系
 # ==========================================
-RAG_SOURCE_PATH = "./data/products.csv"
+RAG_SOURCE_PATH = "data/products_with_stock.csv"
 
 
 # ==========================================
@@ -46,3 +46,26 @@ INITIALIZE_ERROR_MESSAGE = "初期化処理に失敗しました。"
 CONVERSATION_LOG_ERROR_MESSAGE = "過去の会話履歴の表示に失敗しました。"
 RECOMMEND_ERROR_MESSAGE = "商品レコメンドに失敗しました。"
 LLM_RESPONSE_DISP_ERROR_MESSAGE = "商品情報の表示に失敗しました。"
+
+# 在庫状況の定数
+STOCK_LOW = "残りわずか"
+STOCK_NONE = "なし"
+
+# 在庫状況メッセージ
+STOCK_LOW_MESSAGE = "ご好評につき、在庫数が残りわずかです。購入をご希望の場合、お早めにご注文をおすすめいたします。"
+STOCK_NONE_MESSAGE = "申し訳ございませんが、本商品は在庫切れとなっております。入荷までしばらくお待ち下さい。"
+
+# 在庫状況のCSSアイコン
+STOCK_LOW_ICON_CSS = """
+<div style="display: flex; align-items: center; gap: 8px; color: orange; font-size: 18px;">
+    <span style="font-weight: bold;">&#9888;</span> <!-- 三角ビックリマーク -->
+    <span>在庫が少なくなっています！</span>
+</div>
+"""
+
+STOCK_NONE_ICON_CSS = """
+<div style="display: flex; align-items: center; gap: 8px; color: red; font-size: 18px;">
+    <span style="font-weight: bold;">&#10071;</span> <!-- 丸ビックリマーク -->
+    <span>在庫がありません！</span>
+</div>
+"""
